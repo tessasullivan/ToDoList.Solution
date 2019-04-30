@@ -11,7 +11,8 @@
 {
   @foreach (Item item in Model)
   {
-    <li>@item.GetDescription()</li>
+    <!-- <li>@item.GetDescription()</li> -->
+    <li><a href='/items/@item.GetId()'>@item.GetDescription()</a></li>
   }
 }
 
