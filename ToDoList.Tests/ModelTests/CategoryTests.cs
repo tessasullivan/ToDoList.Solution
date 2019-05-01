@@ -57,5 +57,30 @@ namespace ToDoList.Tests
         Category actualResult = Category.Find(2);
         Assert.AreEqual(newCategory2, actualResult);
     }
+    [TestMethod]
+    public void GetItems_ReturnsEmptyItemList_ItemList()
+    {
+        string name = "Work";
+        Category newCategory = new Category(name);
+        List<Item> newList = new List<Item> { };
+        List<Item> actualResult = newCategory.GetItems();
+        CollectionAssert.AreEqual(newList, actualResult);
+    }
+    [TestMethod]
+    public void AddItem_AssociatesItemWithCategory_ItemList()
+    {
+        //Create an item and add to item list
+        string description = "Walk the dog";
+        Item newItem = new Item(description);
+        List<Item> newList = new List<Item>{ newItem };
+
+        // Create a category and add item to it
+        // create a list from GetItems
+        string name = "Home";
+        Category newCategory = new Category(name);
+        newCategory.AddItem(newItem);
+        List<Item> actualResult = newCategory.GetItems();
+        CollectionAssert.AreEqual(newList, actualResult);
+    }
   }
 }
