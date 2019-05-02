@@ -4,7 +4,6 @@ Index.cshtml
 
 <h1>To Do List</h1>
 <ul>
-
 @if (Model.Count == 0)
 {
   <p>You have no items in your to do list!</p>
@@ -13,11 +12,9 @@ Index.cshtml
 {
   @foreach (Item item in Model)
   {
-    <!-- <li>@item.GetDescription()</li> -->
     <li><a href='/items/@item.GetId()'>@item.GetDescription()</a></li>
   }
 }
-
 </ul>
 <a href="/items/new">Add a new item.</a>
 <form action="/items/delete" method="post">
