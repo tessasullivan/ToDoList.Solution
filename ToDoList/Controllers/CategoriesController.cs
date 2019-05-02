@@ -48,5 +48,11 @@ namespace ToDoList.Controllers
         model.Add("items", categoryItems);
         return View(model);
     }
+    [HttpPost("/categories/delete")]
+    public ActionResult Delete()
+    {
+        Category.ClearAll();
+        return View();
+    }
   }
 }
