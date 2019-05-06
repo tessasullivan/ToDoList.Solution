@@ -8,43 +8,43 @@ namespace ToDoList.Tests {
     [TestClass]
     public class ItemControllerTest {
 
-        [TestMethod]
-        public void Create_ReturnsCorrectActionType_RedirectToActionResult () {
-            //Arrange
-            ItemsController controller = new ItemsController ();
+        // [TestMethod]
+        // public void Create_ReturnsCorrectActionType_RedirectToActionResult () {
+        //     //Arrange
+        //     ItemsController controller = new ItemsController ();
 
-            //Act
-            IActionResult view = controller.Create ("Walk the dog");
+        //     //Act
+        //     IActionResult view = controller.Create ("Walk the dog");
 
-            //Assert
-            Assert.IsInstanceOfType (view, typeof (RedirectToActionResult));
-        }
+        //     //Assert
+        //     Assert.IsInstanceOfType (view, typeof (RedirectToActionResult));
+        // }
 
-        [TestMethod]
-        public void Create_RedirectsToCorrectAction_Index () {
-            //Arrange
-            ItemsController controller = new ItemsController ();
-            RedirectToActionResult actionResult = controller.Create ("Walk the dog") as RedirectToActionResult;
+        // [TestMethod]
+        // public void Create_RedirectsToCorrectAction_Index () {
+        //     //Arrange
+        //     ItemsController controller = new ItemsController ();
+        //     RedirectToActionResult actionResult = controller.Create ("Walk the dog") as RedirectToActionResult;
 
-            //Act
-            string result = actionResult.ActionName;
+        //     //Act
+        //     string result = actionResult.ActionName;
 
-            //Assert
-            Assert.AreEqual (result, "Index");
-        }
+        //     //Assert
+        //     Assert.AreEqual (result, "Index");
+        // }
 
-        [TestMethod]
-        public void Index_HasCorrectModelType_ItemList()
-        {
-            //Arrange
-            ItemsController controller = new ItemsController();
-            ViewResult indexView = controller.Index() as ViewResult;
+        // [TestMethod]
+        // public void Index_HasCorrectModelType_ItemList()
+        // {
+        //     //Arrange
+        //     ItemsController controller = new ItemsController();
+        //     ViewResult indexView = controller.Index() as ViewResult;
 
-            //Act
-            var result = indexView.ViewData.Model;
+        //     //Act
+        //     var result = indexView.ViewData.Model;
 
-            //Assert
-            Assert.IsInstanceOfType(result, typeof(List<Item>));
-        }
+        //     //Assert
+        //     Assert.IsInstanceOfType(result, typeof(List<Item>));
+        // }
     }
 }
