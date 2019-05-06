@@ -7,12 +7,12 @@ namespace ToDoList.Models
   public class Item
   {
       private string _description;
-    //   private int _id;
+      private int _id;
 
-      public Item (string description)
+      public Item (string description, int id = 0)
       {
           _description = description;
-        //   _id = _instances.Count;
+          _id = id;
       }
       public string GetDescription()
       {
@@ -39,7 +39,7 @@ namespace ToDoList.Models
           {
               int itemId = rdr.GetInt32(0);
               string itemDescription = rdr.GetString(1);
-              Item newItem = new Item(itemDescription);
+              Item newItem = new Item(itemDescription, itemId);
               allItems.Add(newItem);
           }
           conn.Close();
@@ -71,8 +71,9 @@ namespace ToDoList.Models
         else 
         {
           Item newItem = (Item) otherItem;
+          bool idEquality = (this.GetId() == newItem.GetId());
           bool descriptionEquality = (this.GetDescription() == newItem.GetDescription());
-          return (descriptionEquality);
+          return (idEquality && descriptionEquality);
         }
       }
       public static Item Find(int searchId)
@@ -91,6 +92,7 @@ namespace ToDoList.Models
         description.Value = this._description;
         cmd.Parameters.Add(description);
         cmd.ExecuteNonQuery();
+        _id = (int) cmd.LastInsertedId;
 
         conn.Close();
         if (conn != null)

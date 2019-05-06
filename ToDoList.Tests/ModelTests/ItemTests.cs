@@ -93,6 +93,17 @@ namespace ToDoList.Tests
       CollectionAssert.AreEqual(newList, result);
     }
 
+    [TestMethod]
+    public void Save_AssignsIdToObject_Id()
+    {
+      Item testItem = new Item("Mow the lawn");
+      testItem.Save();
+      Item savedItem = Item.GetAll()[0];
+      int result = savedItem.GetId();
+      int testId = testItem.GetId();
+      Assert.AreEqual(testId, result);
+    }
+
     // [TestMethod]
     // public void GetId_ItemsInstantiateWithAnIdAndGetterReturns_Int()
     // {
