@@ -7,10 +7,10 @@ namespace ToDoList.Models
   public class Item
   {
       private string _description;
-      private string _dueDate;
+      private DateTime _dueDate;
       private int _id;
 
-      public Item (string description, string dueDate, int id = 0)
+      public Item (string description, DateTime dueDate, int id = 0)
       {
           _description = description;
           _dueDate = dueDate;
@@ -22,43 +22,68 @@ namespace ToDoList.Models
       }
       public int GetId()
       {
-        return 0;
+        return _id;
       }
-      public void SetDescription(string newDiscription)
+      public void SetDescription(string newDescription)
       {
-        _description = newDiscription;
+        _description = newDescription;
       }
-      public string GetDueDate()
+      public DateTime GetDueDate()
       {
         return _dueDate;
       }
-      public void SetDueDate(string dueDate)
+      public void SetDueDate(DateTime dueDate)
       {
         _dueDate = dueDate;
       }
       public static List<Item> GetAll()
       {
-          List<Item> allItems = new List<Item> {};
-          MySqlConnection conn = DB.Connection();
-          conn.Open();
-          MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-          cmd.CommandText = @"SELECT * FROM items;";
-          MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
-          while(rdr.Read())
-          {
-              int itemId = rdr.GetInt32(0);
-              string itemDescription = rdr.GetString(1);
-              string dueDate = rdr.GetString(2);
-              Item newItem = new Item(itemDescription, dueDate, itemId);
-              allItems.Add(newItem);
-          }
-          conn.Close();
-          if (conn != null)
-          {
-              conn.Dispose();
-          }
-          return allItems;
+        List<Item> allItems = new List<Item> {};
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+        MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"SELECT * FROM items;";
+        MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+        while(rdr.Read())
+        {
+            int itemId = rdr.GetInt32(0);
+            string itemDescription = rdr.GetString(1);
+            DateTime dueDate = rdr.GetDateTime(2);
+            Item newItem = new Item(itemDescription, dueDate, itemId);
+            allItems.Add(newItem);
+        }
+        conn.Close();
+        if (conn != null)
+        {
+            conn.Dispose();
+        }
+        return allItems;
       }
+      public static List<Item> Sort()
+      {
+        List<Item> allItems = new List<Item> {};
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+        MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"SELECT * FROM items order by duedate;";
+        MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+        while(rdr.Read())
+        {
+            int itemId = rdr.GetInt32(0);
+            string itemDescription = rdr.GetString(1);
+            DateTime dueDate = rdr.GetDateTime(2);
+            Item newItem = new Item(itemDescription, dueDate, itemId);
+            allItems.Add(newItem);
+        }
+        conn.Close();
+        if (conn != null)
+        {
+            conn.Dispose();
+        }
+        return allItems;
+      }
+
+
       public static void ClearAll()
       {
         MySqlConnection conn = DB.Connection();
@@ -99,11 +124,12 @@ namespace ToDoList.Models
         var rdr = cmd.ExecuteReader() as MySqlDataReader;
         int itemId = 0;
         string itemDescription = "";
-        string dueDate = "";
+        DateTime dueDate = new DateTime();
         while (rdr.Read())
         {
           itemId = rdr.GetInt32(0);
           itemDescription = rdr.GetString(1);
+          dueDate = rdr.GetDateTime(2);
         }
         Item foundItem = new Item(itemDescription, dueDate, itemId);
 
@@ -119,11 +145,15 @@ namespace ToDoList.Models
         MySqlConnection conn = DB.Connection();
         conn.Open();
         var cmd = conn.CreateCommand() as MySqlCommand;
-        cmd.CommandText = @"INSERT INTO items (description) VALUES (@ItemDescription);";
+        cmd.CommandText = @"INSERT INTO items (description, dueDate) VALUES (@ItemDescription, @DueDate);";
         MySqlParameter description = new MySqlParameter();
         description.ParameterName = "@ItemDescription";
         description.Value = this._description;
+        MySqlParameter dueDate = new MySqlParameter();
+        dueDate.ParameterName = "@DueDate";
+        dueDate.Value = this._dueDate;
         cmd.Parameters.Add(description);
+        cmd.Parameters.Add(dueDate);
         cmd.ExecuteNonQuery();
         _id = (int) cmd.LastInsertedId;
 
