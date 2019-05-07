@@ -7,11 +7,13 @@ namespace ToDoList.Models
   public class Item
   {
       private string _description;
+      private string _dueDate;
       private int _id;
 
-      public Item (string description, int id = 0)
+      public Item (string description, string dueDate, int id = 0)
       {
           _description = description;
+          _dueDate = dueDate;
           _id = id;
       }
       public string GetDescription()
@@ -26,7 +28,14 @@ namespace ToDoList.Models
       {
         _description = newDiscription;
       }
-      
+      public string GetDueDate()
+      {
+        return _dueDate;
+      }
+      public void SetDueDate(string dueDate)
+      {
+        _dueDate = dueDate;
+      }
       public static List<Item> GetAll()
       {
           List<Item> allItems = new List<Item> {};
@@ -39,7 +48,8 @@ namespace ToDoList.Models
           {
               int itemId = rdr.GetInt32(0);
               string itemDescription = rdr.GetString(1);
-              Item newItem = new Item(itemDescription, itemId);
+              string dueDate = rdr.GetString(2);
+              Item newItem = new Item(itemDescription, dueDate, itemId);
               allItems.Add(newItem);
           }
           conn.Close();
@@ -89,12 +99,13 @@ namespace ToDoList.Models
         var rdr = cmd.ExecuteReader() as MySqlDataReader;
         int itemId = 0;
         string itemDescription = "";
+        string dueDate = "";
         while (rdr.Read())
         {
           itemId = rdr.GetInt32(0);
           itemDescription = rdr.GetString(1);
         }
-        Item foundItem = new Item(itemDescription, itemId);
+        Item foundItem = new Item(itemDescription, dueDate, itemId);
 
         conn.Close();
         if (conn != null)
