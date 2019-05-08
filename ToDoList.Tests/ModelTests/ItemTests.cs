@@ -22,7 +22,7 @@ namespace ToDoList.Tests
     {
       string item = "test";
       DateTime dueDate = new DateTime(2019, 05, 06);
-      Item newItem = new Item(item, dueDate);
+      Item newItem = new Item(item, dueDate, 1);
       Assert.AreEqual(typeof(Item), newItem.GetType());
     }
 
@@ -31,7 +31,7 @@ namespace ToDoList.Tests
     {
       string description = "Walk the dog.";
       DateTime dueDate = new DateTime(2019, 05, 06);
-      Item newItem = new Item(description, dueDate);
+      Item newItem = new Item(description, dueDate, 1);
       string result = newItem.GetDescription();
       Assert.AreEqual(description, result);
     }
@@ -41,7 +41,7 @@ namespace ToDoList.Tests
     {
       string description = "Walk the dog.";
       DateTime dueDate = new DateTime(2019, 05, 06);
-      Item newItem = new Item(description, dueDate);
+      Item newItem = new Item(description, dueDate, 1);
 
       string updatedDescription = "Do the dishes";
       newItem.SetDescription(updatedDescription);
@@ -54,7 +54,7 @@ namespace ToDoList.Tests
     {
       string description = "Walk the dog.";
       DateTime dueDate = new DateTime(2019, 05, 06);
-      Item newItem = new Item(description, dueDate);
+      Item newItem = new Item(description, dueDate, 1);
       DateTime result = newItem.GetDueDate();
       Assert.AreEqual(result, dueDate);
     }
@@ -63,7 +63,7 @@ namespace ToDoList.Tests
     {
       string description = "Walk the dog.";
       DateTime dueDate = new DateTime(2019, 03, 15);
-      Item newItem = new Item(description, dueDate);
+      Item newItem = new Item(description, dueDate, 1);
       DateTime newDueDate = new DateTime(2019, 05, 06);
       newItem.SetDueDate(newDueDate);
       DateTime result = newItem.GetDueDate();
@@ -81,15 +81,15 @@ namespace ToDoList.Tests
     {
       DateTime dueDate = new DateTime(2019, 03, 15);
 
-      Item firstItem = new Item("Mow the lawn", dueDate);
-      Item secondItem = new Item("Mow the lawn", dueDate);
+      Item firstItem = new Item("Mow the lawn", dueDate, 1);
+      Item secondItem = new Item("Mow the lawn", dueDate, 1);
       Assert.AreEqual(firstItem, secondItem);
     }
     [TestMethod]
     public void Save_SavesToDatabase_ItemList()
     {
       DateTime dueDate = new DateTime(2019, 03, 15);
-      Item testItem = new Item("Mow the lawn", dueDate);
+      Item testItem = new Item("Mow the lawn", dueDate, 1);
 
       testItem.Save();
       List<Item> result = Item.GetAll();
@@ -104,8 +104,8 @@ namespace ToDoList.Tests
       DateTime dueDate = new DateTime(2019, 03, 15);
       string description01 = "Walk the dog";
       string description02 = "Wash the dishes";
-      Item newItem1 = new Item(description01, dueDate);
-      Item newItem2 = new Item(description02, dueDate);
+      Item newItem1 = new Item(description01, dueDate, 1);
+      Item newItem2 = new Item(description02, dueDate, 1);
       newItem1.Save();
       newItem2.Save();
 
@@ -137,7 +137,7 @@ namespace ToDoList.Tests
     public void Save_AssignsIdToObject_Id()
     {
       DateTime dueDate = new DateTime(2019, 03, 15);
-      Item testItem = new Item("Mow the lawn", dueDate);
+      Item testItem = new Item("Mow the lawn", dueDate, 1);
       testItem.Save();
       Item savedItem = Item.GetAll()[0];
       int result = savedItem.GetId();
@@ -151,7 +151,7 @@ namespace ToDoList.Tests
     //     //Arrange
     //     DateTime dueDate = new DateTime(2019, 03, 15);
     //     string description = "Walk the dog.";
-    //     Item newItem = new Item(description, dueDate);
+    //     Item newItem = new Item(description, dueDate, 1);
 
     //     //Act
     //     int result = newItem.GetId();
@@ -164,7 +164,7 @@ namespace ToDoList.Tests
     {
       //Arrange
       DateTime dueDate = new DateTime(2019, 03, 15);
-      Item testItem = new Item("Mow the Lawn", dueDate);
+      Item testItem = new Item("Mow the Lawn", dueDate, 1);
       testItem.Save();
 
       //Act
@@ -179,12 +179,21 @@ namespace ToDoList.Tests
       string description = "Walk the dog.";
       string secondDescription = "Mow the lawn";
       DateTime dueDate = new DateTime(2019, 03, 15);
-      Item testItem = new Item(description, dueDate);
+      Item testItem = new Item(description, dueDate, 1);
       testItem.Save();
       testItem.EditDescription(secondDescription);
       string actualResult = Item.Find(testItem.GetId()).GetDescription();
       // System.Console.WriteLine("actualresult " +actualResult);
       Assert.AreEqual(secondDescription, actualResult);
+    }
+    [TestMethod]
+    public void GetCategoryId_ReturnsItemsParentCategoryId_Int()
+    {
+      Category newCategory = new Category("Home Tasks");
+      DateTime dueDate = new DateTime(2019, 03, 15);
+      Item newItem = new Item("Walk the dog.", dueDate, newCategory.GetId());
+      int result = newItem.GetCategoryId();
+      Assert.AreEqual(newCategory.GetId(), result);
     }
   }
 }

@@ -9,11 +9,13 @@ namespace ToDoList.Models
       private string _description;
       private DateTime _dueDate;
       private int _id;
+      private int _categoryId;
 
-      public Item (string description, DateTime dueDate, int id = 0)
+      public Item (string description, DateTime dueDate, int categoryId, int id = 0)
       {
           _description = description;
           _dueDate = dueDate;
+          _categoryId = categoryId;
           _id = id;
       }
       public string GetDescription()
@@ -49,7 +51,8 @@ namespace ToDoList.Models
             int itemId = rdr.GetInt32(0);
             string itemDescription = rdr.GetString(1);
             DateTime dueDate = rdr.GetDateTime(2);
-            Item newItem = new Item(itemDescription, dueDate, itemId);
+            int itemCategoryId = rdr.GetInt32(3);
+            Item newItem = new Item(itemDescription, dueDate, itemCategoryId, itemId);
             allItems.Add(newItem);
         }
         conn.Close();
@@ -108,7 +111,8 @@ namespace ToDoList.Models
           Item newItem = (Item) otherItem;
           bool idEquality = (this.GetId() == newItem.GetId());
           bool descriptionEquality = (this.GetDescription() == newItem.GetDescription());
-          return (idEquality && descriptionEquality);
+          bool categoryEquality = (this.GetCategoryId() == newItem.GetCategoryId());
+          return (idEquality && descriptionEquality && categoryEquality);
         }
       }
       public void EditDescription(string newDescription)
@@ -149,13 +153,15 @@ namespace ToDoList.Models
         int itemId = 0;
         string itemDescription = "";
         DateTime dueDate = new DateTime();
+        int itemCategoryId = 0;
         while (rdr.Read())
         {
           itemId = rdr.GetInt32(0);
           itemDescription = rdr.GetString(1);
           dueDate = rdr.GetDateTime(2);
+          itemCategoryId = rdr.GetInt32(3);
         }
-        Item foundItem = new Item(itemDescription, dueDate, itemId);
+        Item foundItem = new Item(itemDescription, dueDate, itemCategoryId, itemId);
 
         conn.Close();
         if (conn != null)
@@ -169,7 +175,7 @@ namespace ToDoList.Models
         MySqlConnection conn = DB.Connection();
         conn.Open();
         var cmd = conn.CreateCommand() as MySqlCommand;
-        cmd.CommandText = @"INSERT INTO items (description, dueDate) VALUES (@ItemDescription, @DueDate);";
+        cmd.CommandText = @"INSERT INTO items (description, dueDate, category_id) VALUES (@ItemDescription, @DueDate, @category_id);";
         MySqlParameter description = new MySqlParameter();
         description.ParameterName = "@ItemDescription";
         description.Value = this._description;
@@ -178,6 +184,10 @@ namespace ToDoList.Models
         dueDate.Value = this._dueDate;
         cmd.Parameters.Add(description);
         cmd.Parameters.Add(dueDate);
+        MySqlParameter categoryId = new MySqlParameter();
+        categoryId.ParameterName = "@category_id";
+        categoryId.Value = this._categoryId;
+        cmd.Parameters.Add(categoryId);
         cmd.ExecuteNonQuery();
         _id = (int) cmd.LastInsertedId;
 
@@ -186,6 +196,10 @@ namespace ToDoList.Models
         {
           conn.Dispose();
         }
+      }
+      public int GetCategoryId()
+      {
+        return _categoryId;
       }
   }
 }
