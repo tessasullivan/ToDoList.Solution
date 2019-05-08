@@ -186,14 +186,14 @@ namespace ToDoList.Tests
       // System.Console.WriteLine("actualresult " +actualResult);
       Assert.AreEqual(secondDescription, actualResult);
     }
-    [TestMethod]
-    public void GetCategoryId_ReturnsItemsParentCategoryId_Int()
-    {
-      Category newCategory = new Category("Home Tasks");
-      DateTime dueDate = new DateTime(2019, 03, 15);
-      Item newItem = new Item("Walk the dog.", dueDate, newCategory.GetId());
-      int result = newItem.GetCategoryId();
-      Assert.AreEqual(newCategory.GetId(), result);
-    }
+    // [TestMethod]
+    // public void GetCategoryId_ReturnsItemsParentCategoryId_Int()
+    // {
+    //   Category newCategory = new Category("Home Tasks");
+    //   DateTime dueDate = new DateTime(2019, 03, 15);
+    //   Item newItem = new Item("Walk the dog.", dueDate, newCategory.GetId());
+    //   int result = newItem.GetCategoryId();
+    //   Assert.AreEqual(newCategory.GetId(), result);
+    // }
   }
 }
