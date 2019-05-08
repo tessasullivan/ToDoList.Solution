@@ -117,21 +117,21 @@ namespace ToDoList.Tests
       //Assert
       CollectionAssert.AreEqual(newList, result);
     }
-    [TestMethod]
-    public void Sort_ReturnsSortedList_ItemList()
-    {
-      DateTime dueDate1 = new DateTime(2019, 03, 15);
-      DateTime dueDate2 = new DateTime(2019, 01, 15);
-      string description01 = "Walk the dog";
-      string description02 = "Wash the dishes";
-      Item newItem1 = new Item(description01, dueDate1);
-      Item newItem2 = new Item(description02, dueDate2);
-      List<Item> newList = new List<Item> { newItem1, newItem2 };
-      List<Item> expectedResult = new List<Item> { newItem2, newItem1 };
-      List<Item> result = Item.Sort();
-      System.Console.WriteLine(newList);
-      CollectionAssert.AreEqual(expectedResult, result);
-    }
+    // [TestMethod]
+    // public void Sort_ReturnsSortedList_ItemList()
+    // {
+    //   DateTime dueDate1 = new DateTime(2019, 03, 15);
+    //   DateTime dueDate2 = new DateTime(2019, 01, 15);
+    //   string description01 = "Walk the dog";
+    //   string description02 = "Wash the dishes";
+    //   Item newItem1 = new Item(description01, dueDate1);
+    //   Item newItem2 = new Item(description02, dueDate2);
+    //   List<Item> newList = new List<Item> { newItem1, newItem2 };
+    //   List<Item> expectedResult = new List<Item> { newItem2, newItem1 };
+    //   List<Item> result = Item.Sort();
+    //   System.Console.WriteLine(newList);
+    //   CollectionAssert.AreEqual(expectedResult, result);
+    // }
 
     [TestMethod]
     public void Save_AssignsIdToObject_Id()
@@ -173,6 +173,18 @@ namespace ToDoList.Tests
       //Assert
       Assert.AreEqual(testItem, foundItem);
     }
-
+    [TestMethod]
+    public void EditDescription_UpdatesItemInDatabase_String()
+    {
+      string description = "Walk the dog.";
+      string secondDescription = "Mow the lawn";
+      DateTime dueDate = new DateTime(2019, 03, 15);
+      Item testItem = new Item(description, dueDate);
+      testItem.Save();
+      testItem.EditDescription(secondDescription);
+      string actualResult = Item.Find(testItem.GetId()).GetDescription();
+      // System.Console.WriteLine("actualresult " +actualResult);
+      Assert.AreEqual(secondDescription, actualResult);
+    }
   }
 }

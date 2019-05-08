@@ -111,6 +111,30 @@ namespace ToDoList.Models
           return (idEquality && descriptionEquality);
         }
       }
+      public void EditDescription(string newDescription)
+      {
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+        var cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"UPDATE items SET description = @newDescription WHERE id = @searchId;";
+        MySqlParameter searchId = new MySqlParameter();
+        searchId.ParameterName = "@searchId";
+        searchId.Value = _id;
+        cmd.Parameters.Add(searchId);
+        MySqlParameter description = new MySqlParameter();
+        description.ParameterName = "@newDescription";
+        description.Value = newDescription;
+        cmd.Parameters.Add(description);
+        cmd.ExecuteNonQuery();
+        _description = newDescription;
+
+        conn.Close();
+        if (conn != null)
+        {
+          conn.Dispose();
+        }
+
+      }
       public static Item Find(int id)
       {
         MySqlConnection conn = DB.Connection();
