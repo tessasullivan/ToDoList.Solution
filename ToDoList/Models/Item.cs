@@ -26,6 +26,10 @@ namespace ToDoList.Models
     {
       return _id;
     }
+    public override int GetHashCode()
+    {
+        return this.GetId().GetHashCode();
+    }
     public void SetDescription(string newDescription)
     {
       _description = newDescription;

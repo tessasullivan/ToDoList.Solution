@@ -24,6 +24,10 @@ namespace ToDoList.Models
     {
         return _id;
     }
+    public override int GetHashCode()
+    {
+        return this.GetId().GetHashCode();
+    }
     public List<Item> GetItems()
     {
         return _items;
