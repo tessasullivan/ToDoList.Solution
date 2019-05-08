@@ -1,3 +1,7 @@
 <h1>Delete Item</h1>
-<p>@Model.GetDescription() was deleted.</p>
+
+<p>Are you sure you want to delete @Model["items"].GetDescription()?</p>
+<form action="/categories/@Model["category"].GetId()/items/@Model["item"].GetId()/delete" method="post">
+    <button type="submit">Delete</button>
+</form>
 <p><a href="/categories/show">Back to list.</a></p>
