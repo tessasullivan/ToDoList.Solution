@@ -3,12 +3,11 @@
   Layout = "_Layout";
 }
 
-<h2>Category: @Model["category"].GetName()</h2>
-<p>@Model["item"].GetDescription()</p>
+<h2>@Model["category"].GetName()</h2>
+<p>@Model["item"].GetDescription()
 
-<a href='/categories/@Model["category"].GetId()/items/@Model["item"].GetId()/edit'>Edit this Item</a><br />
+<a class = "button" href='/categories/@Model["category"].GetId()/items/@Model["item"].GetId()/edit'>Edit Item</a><br />
+</p>
+<a class = "button" href='/categories/@Model["category"].GetId()/items/@Model["item"].GetId()/delete'>Delete Item</a>
 
-<a href='/categories/@Model["category"].GetId()/items/@Model["item"].GetId()/delete'>Delete this Item</a>
-
-<a href='/categories/@Model["category"].GetId()/items/new'>Add another item</a><br />
-<a href='/categories'>View all categories</a>
+<a class = "button" href='/categories/@Model["category"].GetId()/items/new'>Add item</a><br />

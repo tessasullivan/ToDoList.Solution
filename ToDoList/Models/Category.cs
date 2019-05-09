@@ -28,10 +28,11 @@ namespace ToDoList.Models
     {
         return this.GetId().GetHashCode();
     }
-    public List<Item> GetItems()
-    {
-        return _items;
-    }
+    // public List<Item> GetItems()
+    // {
+    //     return _items;
+    // }
+
     public void AddItem(Item item)
     {
         _items.Add(item);
@@ -128,6 +129,26 @@ namespace ToDoList.Models
         {
         conn.Dispose();
         }
+    }
+    public List<Item> GetItems(int id)
+    {
+        List<Item> allItems = new List<Item> {};
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+        var cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"SELECT * FROM items where category_id = (@categoryId) order by duedate;";
+        MySqlParameter categoryId = new MySqlParameter();
+        categoryId.ParameterName = "@categoryId";
+        categoryId.Value = id;
+        cmd.Parameters.Add(categoryId);
+        cmd.ExecuteNonQuery();
+        conn.Close();
+        if (conn != null)
+        {
+        conn.Dispose();
+        }
+
+        return allItems;
     }
   }
 }

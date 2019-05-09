@@ -8,7 +8,7 @@
 <form action="/categories/@Model["category"].GetId()/items/@Model["item"].GetId()" method="post">
     <label for="newDescription">Name:</label>
     <input type="text" name="newDescription" value="@Model["item"].GetDescription()">
-    <button type="submit">Edit</button>
+    <button type="submit">Update</button>
 </form>
 
 <h4><a href="/categories/@Model["category"].GetId()/items/@Model["item"].GetId()">Return to previous page</a></h4>

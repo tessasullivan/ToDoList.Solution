@@ -4,8 +4,7 @@
 }
 <h2>Delete Item</h2>
 
-<p>Are you sure you want to delete @Model["items"].GetDescription()?</p>
-<form action="/categories/@Model["category"].GetId()/items/@Model["item"].GetId()/delete" method="post">
+<p>Are you sure you want to delete @Model["item"].GetDescription()?</p>
+<form action="/categories/@Model["category"].GetId()/item/@Model["item"].GetId()/delete" method="post">
     <button type="submit">Delete</button>
 </form>
-<p><a href="/categories/show">Back to list.</a></p>

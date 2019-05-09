@@ -2,7 +2,7 @@
 @{
   Layout = "_Layout";
 }
-<h3>Here are all of the items in @Model["category"].GetName()</h3>
+<p>Here are all of the items in @Model["category"].GetName()</p>
 
 @if (Model.Count == 0)
 {
@@ -20,15 +20,8 @@
 
 <table>
     <tr>
-        <td><a href='/categories/@Model["category"].GetId()/items/new'>Add a new item</a></td>
-        <td><a href='/categories/@Model["category"].GetId()/itemssort'>Sort by duedate</a></td>
+        <td><a class="button2" href='/categories/@Model["category"].GetId()/items/new'>Add new item</a></td>
+        <td><a class="button2" href='/categories/@Model["category"].GetId()/itemssort'>Sort by duedate</a></td>
     </tr>
-    <tr>
-        <td>
-            <a href='/categories'>View categories</a>
-        </td>
-        <td>
-            <a href='/categories/new'>Add a new category</a>
-        </td>
-    </tr>
+
 </table>

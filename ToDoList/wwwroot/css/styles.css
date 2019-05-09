@@ -1,9 +1,11 @@
 h1 {
     color: blueviolet;
     margin-left: 15px;
+    /* text-align: center; */
 }
 h2 {
     margin-top: 20px;
+    font-size: 1.25em;
 }
 td {
     padding: 5px;
@@ -15,21 +17,26 @@ th {
     text-align: center;
 }
 nav {
+    /* text-align: center; */
     margin-left: 15px;
 }
-nav a, button, .button {
+nav a, button, .button, .button2 {
     width: 90px;
     height: 30px;
     border:#400080 1px solid;
     text-align: center;
     margin-bottom: 20px;
+    padding-top: 3px;
     background-color: #bda5d6f6;
     color: #400080;
     text-align: center;
     display: inline-block;
     cursor: pointer;
+    font-size: 14px;
 }
-
+.button2 {
+    width: 125px;
+}
 a:hover {
     color: #400080;
     text-decoration: none;
