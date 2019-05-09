@@ -2,16 +2,6 @@
 @{
   Layout = "_Layout";
 }
-<h1>To Do List</h1>
-
-<form action="/categories/@Model.GetId()/items" method="post">
-    <input id='categoryId' name='categoryId' type='hidden' value='@Model.GetId()'>
-    <label for="itemDescription">Item Description</label>
-    <input id="itemDescription" name="itemDescription" type="text">
-    <label for='dueDate'>Due date</label>
-    <input id='dueDate' name='dueDate' type='date'>
-    <button type="submit">Add item</button>
-</form>
 
 
 @if (Model.Count == 0)
@@ -34,14 +24,4 @@
     }
     </table>
 }
-
-<table>
-    <tr>
-        <td>
-            <a href='/categories'>View categories</a>
-        </td>
-        <td>
-            <a href='/categories/new'>Add a new category</a>
-        </td>
-    </tr>
 </table>

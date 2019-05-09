@@ -4,7 +4,7 @@
 }
 @using ToDoList.Models;
 
-<h1>To Do List</h1>
+
 
 
 @if (Model.Count == 0)
@@ -26,18 +26,11 @@
   </table>
 }
 <br/>
-<table>
-    <tr>
-        <td>
-            <a href='/'>Back home</a>
-        </td>
-        <td>
-            <a href="/categories/new">Add a new category.</a>
-        </td>
-        <td>
-          <form action="/categories/delete" method="post">
-            <button type="submit" name="button">Delete all categories</button>
-          </form>
+<form action="/categories/delete" method="post">
+<a class="button" href="/categories/new">Add new</a>
+
+<button type="submit" id="deleteall" name="button">Delete all</button>
+</form>
         </td>
     </tr>
 </table>

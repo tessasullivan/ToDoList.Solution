@@ -2,7 +2,7 @@
 @{
   Layout = "_Layout";
 }
-<h1>Delete Item</h1>
+<h2>Delete Item</h2>
 
 <p>Are you sure you want to delete @Model["items"].GetDescription()?</p>
 <form action="/categories/@Model["category"].GetId()/items/@Model["item"].GetId()/delete" method="post">
