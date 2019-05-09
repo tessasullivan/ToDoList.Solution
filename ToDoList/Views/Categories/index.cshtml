@@ -1,7 +1,7 @@
 @using ToDoList.Models;
 
 <h1>To Do List</h1>
-<ul>
+
 
 @if (Model.Count == 0)
 {
@@ -9,15 +9,32 @@
 }
 @if(Model.Count != 0)
 {
+  <table>
+    <tr>
+      <th>Category</th>
+    </tr>
   @foreach (Category category in Model)
   {
-    <li><a href='/categories/@category.GetId()'>@category.GetName()</a></li>
+    <tr>
+      <td><a href='/categories/@category.GetId()'>@category.GetName()</a></td>
+    </tr>
   }
+  </table>
 }
+<br/>
+<table>
+    <tr>
+        <td>
+            <a href='/'>Back home</a>
+        </td>
+        <td>
+            <a href="/categories/new">Add a new category.</a>
+        </td>
+        <td>
+          <form action="/categories/delete" method="post">
+            <button type="submit" name="button">Delete all categories</button>
+          </form>
+        </td>
+    </tr>
+</table>
 
-</ul>
-<p><a href='/'>Back home</a></p>
-<p><a href="/categories/new">Add a new category.</a></p>
-<form action="/categories/delete" method="post">
-  <button type="submit" name="button">Delete all categories</button>
-</form>

@@ -10,7 +10,8 @@ namespace ToDoList.Controllers
     [HttpGet("/")]
     public ActionResult Index()
     {
-        return View();
+      List<Item> sortedItems = Item.Sort();
+      return View(sortedItems);
     }
   }
 }

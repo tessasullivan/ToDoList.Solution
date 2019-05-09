@@ -26,6 +26,10 @@ namespace ToDoList.Models
     {
       return _id;
     }
+    public int GetCategoryId()
+    {
+      return _categoryId;
+    }
     public override int GetHashCode()
     {
         return this.GetId().GetHashCode();
@@ -79,7 +83,8 @@ namespace ToDoList.Models
         int itemId = rdr.GetInt32(0);
         string itemDescription = rdr.GetString(1);
         DateTime dueDate = rdr.GetDateTime(2);
-        Item newItem = new Item(itemDescription, dueDate, itemId);
+        int categoryId = rdr.GetInt32(3);
+        Item newItem = new Item(itemDescription, dueDate, categoryId, itemId);
         allItems.Add(newItem);
       }
       conn.Close();
@@ -200,10 +205,7 @@ namespace ToDoList.Models
         conn.Dispose();
       }
     }
-    public int GetCategoryId()
-    {
-      return _categoryId;
-    }
+
     public void Delete(int id)
     {
       MySqlConnection conn = DB.Connection();
