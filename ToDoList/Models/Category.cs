@@ -130,6 +130,8 @@ namespace ToDoList.Models
         conn.Dispose();
         }
     }
+    //////////////////////////////////////////////////////////
+    ///////// FIX THIS METHOD TO USE READER //////////////////
     public List<Item> GetItems(int id)
     {
         List<Item> allItems = new List<Item> {};
