@@ -26,28 +26,16 @@ namespace ToDoList.Controllers
     {
         return View();
     }
-    // This one creates new Items within a given Category, not new Categories:
-    [HttpPost("/categories/{categoryId}/items")]
-    public ActionResult Create(int categoryId, string itemDescription, DateTime dueDate)
-    {
-      Dictionary<string, object> model = new Dictionary<string, object>();
-      Category foundCategory = Category.Find(categoryId);
-      Item newItem = new Item(itemDescription, dueDate, categoryId);
-      newItem.Save();
-      foundCategory.AddItem(newItem);
-      List<Item> categoryItems = foundCategory.GetItems();
-      model.Add("items", categoryItems);
-      model.Add("category", foundCategory); 
-      return View("Show", model);
-    }
     [HttpGet("/categories/{id}")]
     public ActionResult Show(int id)
     {
         Dictionary<string, object> model = new Dictionary<string, object>();
         Category selectedCategory = Category.Find(id);
         List<Item> categoryItems = selectedCategory.GetItems();
+        List<Item> allItems = Item.GetAll();
         model.Add("category", selectedCategory);
-        model.Add("items", categoryItems);
+        model.Add("categoryItems", categoryItems);
+        model.Add("allItems", allItems);
         return View(model);
     }
     [HttpPost("/categories/delete")]
@@ -57,15 +45,23 @@ namespace ToDoList.Controllers
         Item.ClearAll();
         return View();
     }
-    [HttpGet("/categories/{categoryId}/itemssort")]
-    public ActionResult Sort(int categoryId, string itemDescription, DateTime dueDate  )
+    [HttpPost("/categories/{categoryId}/items/new")]
+    public ActionResult AddItem(int categoryId, int itemId)
     {
-      Dictionary<string, object> model = new Dictionary<string, object>();
-      Category foundCategory = Category.Find(categoryId);
-      List<Item> sortedItems = Item.Sort();
-      model.Add("items", sortedItems);
-      model.Add("category", foundCategory);
-      return View("Show", model);
+      Category category = Category.Find(categoryId);
+      Item item = Item.Find(itemId);
+      category.AddItem(item);
+      return RedirectToAction("Show", new {id = categoryId});
     }
+    // [HttpGet("/categories/{categoryId}/itemssort")]
+    // public ActionResult Sort(int categoryId, string itemDescription, DateTime dueDate  )
+    // {
+    //   Dictionary<string, object> model = new Dictionary<string, object>();
+    //   Category foundCategory = Category.Find(categoryId);
+    //   List<Item> sortedItems = Item.Sort();
+    //   model.Add("items", sortedItems);
+    //   model.Add("category", foundCategory);
+    //   return View("Show", model);
+    // }
   }
 }

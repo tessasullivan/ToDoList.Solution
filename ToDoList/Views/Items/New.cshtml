@@ -4,10 +4,9 @@
 }
 @using ToDoList.Models;
 
-    <h2>Add a new item to @Model.GetName()</h2>
+    <h2>Add a new item</h2>
 
-    <form action="/categories/@Model.GetId()/items" method="post">
-      <input id='categoryId' name='categoryId' type='hidden' value='@Model.GetId()'>
+    <form action="/items" method="post">
       <label for="itemDescription">Item Description</label>
       <input id="itemDescription" name="itemDescription" type="text">
       <label for='dueDate'>Due date</label>

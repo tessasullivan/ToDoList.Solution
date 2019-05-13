@@ -6,24 +6,37 @@
 
 <h2>@Model["category"].GetName()</h2>
 
-@if (Model["items"].Count == 0)
+@if (Model["categoryItems"].Count != 0)
 {
-    <p>You have no items in this category.</p>
-}
-@if(Model["items"].Count != 0)
-{
-    <ol>
-    @foreach (var item in @Model["items"])
+    <ul>
+    @foreach (var item in @Model["categoryItems"])
     {
-        <li><a href='/categories/@Model["category"].GetId()/items/@item.GetId()'>@item.GetDescription() @item.GetDueDate().ToString("MM/dd/yyyy")</a></li>
+        <li><a href='/items/@item.GetId()'>@item.GetDescription() @item.GetDueDate().ToString("MM/dd/yyyy")</a></li>
     }
-    </ol>
+    </ul>
 }
+<h4>Add an item to this category:</h4>
+
+@if (Model["allItems"].Count !=0 )
+{
+    <form action='/categories/@Model["category"].GetId()/items/new' method='post'>
+        <label for='itemId'>Select an item</label>
+        <select id='itemId' name='itemId' type='text'>
+            @foreach (var item in @Model["allItems"])
+            {
+                <option value='@item.GetId()'>@item.GetDescription() @item.GetDueDate().ToString("MM/dd/yyyy")</option>
+            }
+
+
+        </select>
+        <button type='submit'>Add</button>
+    </form>
+}
+
 
 <table>
     <tr>
-        <td><a class="button2" href='/categories/@Model["category"].GetId()/items/new'>Add new item</a></td>
-        <td><a class="button2" href='/categories/@Model["category"].GetId()/itemssort'>Sort by duedate</a></td>
+        <td><a class="button2" href='/items/new'>Add new item</a></td>
     </tr>
 
 </table>

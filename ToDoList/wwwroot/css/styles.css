@@ -6,6 +6,10 @@ h1 {
 h2 {
     margin-top: 20px;
     font-size: 1.25em;
+    color: #400080;
+}
+h4 {
+    font-size: 1em;
 }
 td {
     padding: 5px;
@@ -35,7 +39,7 @@ nav a, button, .button, .button2 {
     font-size: 14px;
 }
 .button2 {
-    width: 125px;
+    width: 120px;
 }
 a:hover {
     color: #400080;
