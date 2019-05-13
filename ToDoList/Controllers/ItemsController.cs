@@ -49,7 +49,7 @@ namespace ToDoList.Controllers
     public ActionResult Delete(int itemId)
     {
       Item item = Item.Find(itemId);
-      item.Delete(itemId);
+      item.Delete();
       return RedirectToAction("Index", "Categories");
       // return View("Show");
     }

@@ -76,6 +76,10 @@ namespace ToDoList.Models
             conn.Dispose();
         }
     }
+    public void Delete()
+    {
+
+    }
     public static List<Category> GetAll()
     {
         List<Category> allCategories = new List<Category>{};
@@ -86,10 +90,10 @@ namespace ToDoList.Models
         var rdr = cmd.ExecuteReader() as MySqlDataReader;
         while (rdr.Read())
         {
-        int categoryId = rdr.GetInt32(0);
-        string categoryName = rdr.GetString(1);
-        Category newCategory = new Category(categoryName, categoryId);
-        allCategories.Add(newCategory);
+            int categoryId = rdr.GetInt32(0);
+            string categoryName = rdr.GetString(1);
+            Category newCategory = new Category(categoryName, categoryId);
+            allCategories.Add(newCategory);
         }
         conn.Close();
         if (conn != null)
@@ -130,20 +134,31 @@ namespace ToDoList.Models
         conn.Dispose();
         }
     }
-    //////////////////////////////////////////////////////////
-    ///////// FIX THIS METHOD TO USE READER //////////////////
-    public List<Item> GetItems(int id)
+
+    public List<Item> GetItems()
     {
         List<Item> allItems = new List<Item> {};
         MySqlConnection conn = DB.Connection();
         conn.Open();
         var cmd = conn.CreateCommand() as MySqlCommand;
-        cmd.CommandText = @"SELECT * FROM items where category_id = (@categoryId) order by duedate;";
-        MySqlParameter categoryId = new MySqlParameter();
-        categoryId.ParameterName = "@categoryId";
-        categoryId.Value = id;
-        cmd.Parameters.Add(categoryId);
-        cmd.ExecuteNonQuery();
+        cmd.CommandText = @"SELECT items.* FROM categories
+            JOIN categories_items ON (categories.id = categories_items.category_id)
+            JOIN items ON (categories_items.item_id = items.id)
+            WHERE categories.id = @CategoryId;";
+        MySqlParameter categoryIdParameter = new MySqlParameter();
+        categoryIdParameter.ParameterName = "@CategoryId";
+        categoryIdParameter.Value = _id;
+        cmd.Parameters.Add(categoryIdParameter);
+        var rdr = cmd.ExecuteReader() as MySqlDataReader;
+        List<int> itemIds = new List<int>{};
+        while (rdr.Read())
+        {
+            int id = rdr.GetInt32(0);
+            string itemDescription = rdr.GetString(1);
+            DateTime dueDate = rdr.GetDateTime(2);
+            Item foundItem = new Item(itemDescription, dueDate, id);
+            allItems.Add(foundItem);
+        }
         conn.Close();
         if (conn != null)
         {
@@ -154,3 +169,4 @@ namespace ToDoList.Models
     }
   }
 }
+

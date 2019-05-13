@@ -9,7 +9,7 @@
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
+use to_do_list_with_dueDate_test;
 --
 -- Database: `to_do_list_with_dueDate_test`
 --
