@@ -19,9 +19,9 @@ namespace ToDoList.Controllers
       return View();
     }
     [HttpPost("/items")]
-    public ActionResult Create(string description, DateTime dueDate)
+    public ActionResult Create(string itemDescription, DateTime dueDate)
     {
-      Item newItem = new Item(description, dueDate);
+      Item newItem = new Item(itemDescription, dueDate);
       newItem.Save();
       List<Item> allItems = Item.GetAll();
       return View("Index", allItems);
