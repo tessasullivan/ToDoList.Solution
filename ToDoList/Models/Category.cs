@@ -28,10 +28,6 @@ namespace ToDoList.Models
     {
         return this.GetId().GetHashCode();
     }
-    // public List<Item> GetItems()
-    // {
-    //     return _items;
-    // }
 
     public void AddItem(Item item)
     {
@@ -106,14 +102,14 @@ namespace ToDoList.Models
     {
         if (!(otherCategory is Category))
         {
-        return false;
+            return false;
         }
         else
         {
-        Category newCategory= (Category) otherCategory;
-        bool idEquality = this.GetId().Equals(newCategory.GetId());
-        bool nameEquality = this.GetName().Equals(newCategory.GetName());
-        return (idEquality && nameEquality);
+            Category newCategory= (Category) otherCategory;
+            bool idEquality = this.GetId().Equals(newCategory.GetId());
+            bool nameEquality = this.GetName().Equals(newCategory.GetName());
+            return (idEquality && nameEquality);
         }
     }
     public void Save()

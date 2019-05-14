@@ -16,26 +16,26 @@ namespace ToDoList.Tests
     {
       Category.ClearAll();
     }
-    [TestMethod]
-    public void Delete_DeletesCategoryAssociationsFromDatabase_CategoryList()
-    {
-      //Arrange
-      DateTime dueDate = new DateTime(2019, 03, 15);
-      Item testItem = new Item("Mow the lawn", dueDate);
-      testItem.Save();
-      string testName = "Home stuff";
-      Category testCategory = new Category(testName);
-      testCategory.Save();
+    // [TestMethod]
+    // public void Delete_DeletesCategoryAssociationsFromDatabase_CategoryList()
+    // {
+    //   //Arrange
+    //   DateTime dueDate = new DateTime(2019, 03, 15);
+    //   Item testItem = new Item("Mow the lawn", dueDate);
+    //   testItem.Save();
+    //   string testName = "Home stuff";
+    //   Category testCategory = new Category(testName);
+    //   testCategory.Save();
 
-      //Act
-      testCategory.AddItem(testItem);
-      testCategory.Delete();
-      List<Category> resultItemCategories = testItem.GetCategories();
-      List<Category> testItemCategories = new List<Category> {};
+    //   //Act
+    //   testCategory.AddItem(testItem);
+    //   testCategory.Delete();
+    //   List<Category> resultItemCategories = testItem.GetCategories();
+    //   List<Category> testItemCategories = new List<Category> {};
 
-      //Assert
-      CollectionAssert.AreEqual(testItemCategories, resultItemCategories);
-    }
+    //   //Assert
+    //   CollectionAssert.AreEqual(testItemCategories, resultItemCategories);
+    // }
     // [TestMethod]
     // public void CategoryConstructor_CreatesInstanceOfCategory_Category()
     // {
