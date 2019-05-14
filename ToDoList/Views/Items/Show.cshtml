@@ -3,29 +3,38 @@
   Layout = "_Layout";
 }
 @using ToDoList.Models;
+@using System.Globalization;
 
-<h3 class="list">@Model["selectedItem"].GetDescription() @Model["selectedItem"].GetDueDate()</h3>
-<a class="button" href='/items/@Model["selectedItem"].GetId()/edit'>Edit</a>
-<a class="button" href='/items/@Model["selectedItem"].GetId()/delete'>Delete</a>
-@if (@Model["itemCategories"].Count != 0)
-{
-  <h4>This item has these categories:</h4>
-  <ul>
-    @foreach (Category category in @Model["itemCategories"])
-    {
-      <li>@category.GetName()</li>
-    }
-  </ul>
-}
+  <h5 class="list">@CultureInfo.CurrentCulture.TextInfo.ToTitleCase(@Model["selectedItem"].GetDescription()) @Model["selectedItem"].GetDueDate().ToString("MM/dd/yyyy")</h5>
+   @if (@Model["itemCategories"].Count != 0)
+  {
+    <h4>This item has these categories:</h4>
+    <ul>
+      @foreach (Category category in @Model["itemCategories"])
+      {
+        <li>@category.GetName()</li>
+      }
+    </ul>
+  }
+  <div class="grid">
+    <div class="g1">
+      <a class="button" href='/items/@Model["selectedItem"].GetId()/edit'>Edit</a>
+    </div>
+    <div class= "g2">
+      <h4>Add a category to this item:</h4>
+        <form action='/items/@Model["selectedItem"].GetId()/categories/new' method='post'>
+        <label for='categoryId'></label>
+        <select id='categoryId' name='categoryId' type='text'>
+          @foreach (var category in @Model["allCategories"])
+          {
+            <option value='@category.GetId()'>@category.GetName()</option>
+          }
+        </select>
+        <button type='submit'>Add</button>
+        </form>
+    </div>
+  <div class="g3"> 
+    <a class="button" href='/items/@Model["selectedItem"].GetId()/delete'>Delete</a>
+  </div>
+</div>
 
-<h4>Add a category to this item:</h4>
-<form action='/items/@Model["selectedItem"].GetId()/categories/new' method='post'>
-  <label for='categoryId'>Select a category:</label>
-  <select id='categoryId' name='categoryId' type='text'>
-    @foreach (var category in @Model["allCategories"])
-    {
-      <option value='@category.GetId()'>@category.GetName()</option>
-    }
-  </select>
-  <button type='submit'>Add</button>
-</form>
