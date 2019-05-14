@@ -66,36 +66,23 @@ namespace ToDoList.Controllers
       model.Add("allCategories", allCategories);
       return View("Show", model);
     }
-    // [HttpGet("/categories/{categoryId}/items/{itemId}/edit")]
-    // public ActionResult Edit(int categoryId, int itemId)
-    // {
-    //   Dictionary<string, object> model = new Dictionary<string, object>();
-    //   Category category = Category.Find(categoryId);
-    //   Item item = Item.Find(itemId);
-    //   model.Add("category", category);
-    //   model.Add("item", item);
-    //   return View(model);
-    // [HttpPost("/categories/{categoryId}/items/{itemId}/delete")]
-    // public ActionResult Delete(int itemId)
-    // {
-    //   Item item = Item.Find(itemId);
-    //   item.Delete();
-    //   return RedirectToAction("Index", "Categories");
-    //   // return View("Show");
-    // }
 
-    // [HttpGet("/categories/{categoryId}/items/{itemId}/delete")]
-    // public ActionResult Delete(int categoryId, int itemId)
-    // {
-    //   Dictionary<string, object> model = new Dictionary<string, object>();
-    //   Category category = Category.Find(categoryId);
-    //   Item item = Item.Find(itemId);
-    //   model.Add("category", category);
-    //   model.Add("item", item);
-    //   return View(model);
-    // }
+    [HttpGet("/items/{itemId}/delete")]
+    public ActionResult Delete(int itemId)
+    {
+      Item item = Item.Find(itemId);
+      return View(item);
+    }
 
-    [HttpPost("/items/delete")]
+    [HttpPost("/items/{itemId}/delete")]
+    public ActionResult DeleteItem(int itemId)
+    {
+      Item item = Item.Find(itemId);
+      item.Delete();
+      List<Item> allItems = Item.GetAll();      
+      return View("Index", allItems);
+    }
+    [HttpPost("/items/deleteAll")]
     public ActionResult DeleteAll()
     {
         Item.ClearAll();
