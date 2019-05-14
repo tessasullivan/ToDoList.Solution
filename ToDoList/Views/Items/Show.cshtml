@@ -4,8 +4,9 @@
 }
 @using ToDoList.Models;
 
-<h3>@Model["selectedItem"].GetDescription()</h3>
-
+<h3 class="list">@Model["selectedItem"].GetDescription() @Model["selectedItem"].GetDueDate()</h3>
+<a class="button" href='/items/@Model["selectedItem"].GetId()/edit'>Edit</a>
+<a class="button" href='/items/@Model["selectedItem"].GetId()/delete'>Delete</a>
 @if (@Model["itemCategories"].Count != 0)
 {
   <h4>This item has these categories:</h4>

@@ -3,7 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: May 14, 2019 at 03:09 PM
+
+-- Generation Time: May 14, 2019 at 04:14 PM
+
 -- Server version: 5.6.38
 -- PHP Version: 7.2.1
 
@@ -44,6 +46,12 @@ CREATE TABLE `categories_items` (
   `item_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+--
+-- Dumping data for table `categories_items`
+--
+
+
 -- --------------------------------------------------------
 
 --
@@ -53,16 +61,12 @@ CREATE TABLE `categories_items` (
 CREATE TABLE `items` (
   `id` int(11) NOT NULL,
   `description` varchar(255) NOT NULL,
-  `dueDate` date NOT NULL,
-  `category_id` int(11) NOT NULL
+  `dueDate` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `items`
 --
-
-INSERT INTO `items` (`id`, `description`, `dueDate`, `category_id`) VALUES
-(3, 'do the dishes', '2019-05-15', 0);
 
 --
 -- Indexes for dumped tables
@@ -101,10 +105,13 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `categories_items`
 --
 ALTER TABLE `categories_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+

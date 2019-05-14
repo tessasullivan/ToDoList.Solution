@@ -47,17 +47,13 @@ nav a {
     display: inline-block;
     cursor: pointer;
 }
-.button2 {
-    width: 120px;
-}
+
 a:hover {
     background-color: #400080;
     color: white;
     text-decoration: none;
 }
-.deleteall{
-    margin-top: 20px;
-}
+
 @media screen and (min-width: 600px) {
     nav a {
       width: 120px;
@@ -71,3 +67,14 @@ a:hover {
       margin-right: -4px;
     }
   }
+.list {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.button2 {
+    width: 120px;
+}
+.deleteall{
+    margin-top: 20px;
+}

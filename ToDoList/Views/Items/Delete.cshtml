@@ -6,8 +6,8 @@
 
 <h2>Delete Item</h2>
 
-<p>Are you sure you want to delete @Model["item"].GetDescription()?</p>
+<p>Are you sure you want to delete @Model.GetDescription()?</p>
 
-<form action="/categories/@Model["category"].GetId()/items/@Model["item"].GetId()/delete" method="post">
+<form action="/items/@Model.GetId()/delete" method="post">
     <button type="submit">Delete</button>
 </form>

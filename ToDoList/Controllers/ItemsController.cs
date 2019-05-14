@@ -47,49 +47,42 @@ namespace ToDoList.Controllers
       item.AddCategory(category);
       return RedirectToAction("Show", new {id = itemId});
     }
-    // [HttpGet("/categories/{categoryId}/items/{itemId}/edit")]
-    // public ActionResult Edit(int categoryId, int itemId)
-    // {
-    //   Dictionary<string, object> model = new Dictionary<string, object>();
-    //   Category category = Category.Find(categoryId);
-    //   Item item = Item.Find(itemId);
-    //   model.Add("category", category);
-    //   model.Add("item", item);
-    //   return View(model);
-    // }
-    // [HttpPost("/categories/{categoryId}/items/{itemId}")]
-    // public ActionResult Update(int categoryId, int itemId, string newDescription)
-    // {
-    //   Item item = Item.Find(itemId);
-    //   item.EditDescription(newDescription);
-    //   Dictionary<string, object> model = new Dictionary<string, object>();
-    //   Category category = Category.Find(categoryId);
-    //   model.Add("category", category);
-    //   model.Add("item", item);
-    //   return View("Show", model);
-    // }
+    [HttpGet("/items/{itemId}/edit")]
+    public ActionResult Edit(int itemId)
+    {
+      Item item = Item.Find(itemId);
+      return View(item);
+    } 
+    [HttpPost("/items/{itemId}")]
+    public ActionResult Update(int itemId, string newDescription)
+    {
+      Dictionary<string, object> model = new Dictionary<string, object>();
+      Item selectedItem = Item.Find(itemId);
+      selectedItem.EditDescription(newDescription);
+      List<Category> itemCategories = selectedItem.GetCategories();
+      List<Category> allCategories = Category.GetAll();
+      model.Add("selectedItem", selectedItem);
+      model.Add("itemCategories", itemCategories);
+      model.Add("allCategories", allCategories);
+      return View("Show", model);
+    }
 
-    // [HttpPost("/categories/{categoryId}/items/{itemId}/delete")]
-    // public ActionResult Delete(int itemId)
-    // {
-    //   Item item = Item.Find(itemId);
-    //   item.Delete();
-    //   return RedirectToAction("Index", "Categories");
-    //   // return View("Show");
-    // }
+    [HttpGet("/items/{itemId}/delete")]
+    public ActionResult Delete(int itemId)
+    {
+      Item item = Item.Find(itemId);
+      return View(item);
+    }
 
-    // [HttpGet("/categories/{categoryId}/items/{itemId}/delete")]
-    // public ActionResult Delete(int categoryId, int itemId)
-    // {
-    //   Dictionary<string, object> model = new Dictionary<string, object>();
-    //   Category category = Category.Find(categoryId);
-    //   Item item = Item.Find(itemId);
-    //   model.Add("category", category);
-    //   model.Add("item", item);
-    //   return View(model);
-    // }
-
-    [HttpPost("/items/delete")]
+    [HttpPost("/items/{itemId}/delete")]
+    public ActionResult DeleteItem(int itemId)
+    {
+      Item item = Item.Find(itemId);
+      item.Delete();
+      List<Item> allItems = Item.GetAll();      
+      return View("Index", allItems);
+    }
+    [HttpPost("/items/deleteAll")]
     public ActionResult DeleteAll()
     {
         Item.ClearAll();
