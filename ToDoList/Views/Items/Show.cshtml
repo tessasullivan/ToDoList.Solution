@@ -5,22 +5,35 @@
 @using ToDoList.Models;
 @using System.Globalization;
 
-  <h5 class="list">@CultureInfo.CurrentCulture.TextInfo.ToTitleCase(@Model["selectedItem"].GetDescription()) @Model["selectedItem"].GetDueDate().ToString("MM/dd/yyyy")</h5>
-   @if (@Model["itemCategories"].Count != 0)
-  {
-    <h4>This item has these categories:</h4>
-    <ul>
-      @foreach (Category category in @Model["itemCategories"])
-      {
-        <li>@category.GetName()</li>
-      }
-    </ul>
-  }
-  <div class="grid">
+<div class="grid">
+  <div class="middle-of-columns">    
+    <table class="list">
+      <tr>
+        <td>@CultureInfo.CurrentCulture.TextInfo.ToTitleCase(@Model["selectedItem"].GetDescription())</td>
+        <td>@Model["selectedItem"].GetDueDate().ToString("MM/dd/yyyy")</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="middle-of-columns">
+    @if (@Model["itemCategories"].Count != 0)
+    {
+      <h4>This item has these categories:</h4>
+      <ul>
+        @foreach (Category category in @Model["itemCategories"])
+        {
+          <li>@category.GetName()</li>
+        }
+      </ul>
+    }
+  </div>
+
+  <div class="nested">
     <div class="g1">
       <a class="button" href='/items/@Model["selectedItem"].GetId()/edit'>Edit</a>
     </div>
-    <div class= "g2">
+
+    <div>
       <h4>Add a category to this item:</h4>
         <form action='/items/@Model["selectedItem"].GetId()/categories/new' method='post'>
         <label for='categoryId'></label>
@@ -33,8 +46,9 @@
         <button type='submit'>Add</button>
         </form>
     </div>
-  <div class="g3"> 
-    <a class="button" href='/items/@Model["selectedItem"].GetId()/delete'>Delete</a>
+    <div class="g3"> 
+      <a class="button" href='/items/@Model["selectedItem"].GetId()/delete'>Delete</a>
+    </div>
   </div>
 </div>
 

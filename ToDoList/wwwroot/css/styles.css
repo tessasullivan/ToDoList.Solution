@@ -2,7 +2,7 @@ h1 {
     color: blueviolet;
     margin-left: 15px;
     text-align: center;
-    text-shadow: #40008088 5px 2px;
+    text-shadow: #40008088 3px 2px;
 }
 h2 {
     margin-top: 20px;
@@ -89,7 +89,8 @@ a:hover {
 .grid{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    padding: 3%;
+    grid-gap: 3%;
+    /* padding: 3%; */
     align-items: center;
 }
 .g1{
@@ -99,4 +100,15 @@ a:hover {
 .g3{
     padding-right: 50%;
     margin-top: 7%;
+}
+
+.middle-of-columns {
+    grid-column: 2/3;
+}
+.nested {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column: 1/3;
+    align-items: center;
+    justify-items: center;    
 }
