@@ -6,33 +6,41 @@
 
 <h2>@Model["category"].GetName()</h2>
 
-@if (Model["categoryItems"].Count != 0)
-{
-    <ul>
-    @foreach (var item in @Model["categoryItems"])
-    {
-        <li><a href='/items/@item.GetId()'>@item.GetDescription() @item.GetDueDate().ToString("MM/dd/yyyy")</a></li>
-    }
-    </ul>
-}
+<div class="grid">
+    <div>
+        @if (Model["categoryItems"].Count != 0)
+        {
+            <ul>
+            @foreach (var item in @Model["categoryItems"])
+            {
+                <li><a href='/items/@item.GetId()'>@item.GetDescription() @item.GetDueDate().ToString("MM/dd/yyyy")</a></li>
+            }
+            </ul>
+        }
+    </div>
+</div>
+
 <h4>Add an item to this category:</h4>
 
-@if (Model["allItems"].Count !=0 )
-{
-    <form action='/categories/@Model["category"].GetId()/items/new' method='post'>
-        <label for='itemId'>Select an item</label>
-        <select id='itemId' name='itemId' type='text'>
-            @foreach (var item in @Model["allItems"])
-            {
-                <option value='@item.GetId()'>@item.GetDescription() @item.GetDueDate().ToString("MM/dd/yyyy")</option>
-            }
+<div class="grid">
+    <div>
+        @if (Model["allItems"].Count !=0 )
+        {
+            <form action='/categories/@Model["category"].GetId()/items/new' method='post'>
+                <label for='itemId'>Select an item</label>
+                <select id='itemId' name='itemId' type='text'>
+                    @foreach (var item in @Model["allItems"])
+                    {
+                        <option value='@item.GetId()'>@item.GetDescription() @item.GetDueDate().ToString("MM/dd/yyyy")</option>
+                    }
 
 
-        </select>
-        <button type='submit'>Add</button>
-    </form>
-}
-
+                </select>
+                <button type='submit'>Add</button>
+            </form>
+        }
+    </div>
+</div>
 
 <table>
     <tr>
